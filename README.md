@@ -24,8 +24,8 @@ npm i jbc-ic
 * 安装后在main.js中添加引用，jbc-ic库是基于[jbc(基础类库)](https://www.npmjs.com/package/jbc "欢迎使用jbc基础类库，这里有丰富的基础方法，简单快捷易上手，还等什么~")和Vue开发的
 * 在Vue环境下提供了一些实用指令和常用组件
 * jbc-ic增加了一些数据请求方法等挂载到了jbc下
-* 所以安装jbc-ic后可直接使用jbc的方法，无需单独安装jbc,jbc调用方式又类似jquery，因为jbc在没有jquery的情况下会使用别名$
-* 如果用户已使用jquery，jbc会把所有方法挂载到jquery上，综上：理论上安装jbc-ic完毕，就可以使用  $.变量或方法的方式来使用 例如：$.xxx 或$.xxx(),如不使用jbc方法请忽略
+* 所以安装jbc-ic后可直接使用jbc的方法，无需单独安装jbc
+* jbc返回的是一个闭包方法集，您可以根据您的需要赋值给任意变量，例如：Vue.prototype.jbc = jbc;
 * jbc-ic的指令和组件调用跟Vue一致，例如：指令（v-clearSelect）
 
 ```javascript
@@ -39,10 +39,10 @@ Vue.use(jbc)
 * 安装完毕，举个栗子获取uuid，测试jbc方法能否正常使用
 
 ```javascript
-//获取具有唯一性的字符 三种形式均可
-console.log(this.uuid());
-console.log($.uuid());
+//获取具有唯一性的字符
 console.log(jbc.uuid());
+//等价于
+console.log(window.jbc.uuid());
 ```
 
 * 测试jbc-ic指令是否正常实用
@@ -56,7 +56,7 @@ v-clearSelect
 
 ## 新增或调整
 
-* 新增 弹窗组件套装 cover coverbtn covercontent
+* 调整jbc方法位置，从Vue.prototype下调整到Vue.prototype.jbc,防止与其他工具类重名
 
 
 ## 方法
@@ -92,9 +92,6 @@ addClass(elem, class) //添加样式
 removeClass(elem, class) //删除样式
 siblings(elem, class) //获取兄弟节点
 
-//优化类
-throttle(fn, delay = 200) //节流
-debounce(fn, delay = 100, immediate = true) //防抖 函数，间隔时间，是否立即执行
 
 //动画类
 animate(obj, json, interval, sp, fn) //普通方向动画
